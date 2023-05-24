@@ -39,7 +39,8 @@ def game():
         screen.fill('white')
         player = level.run()
         if player.is_dead == True:
-            break
+            pygame.quit()
+            return
 
         pygame.display.update()
         clock.tick(60)
@@ -112,7 +113,7 @@ def loading():
               if event.type == pygame.MOUSEBUTTONDOWN:
                 Vid.close()           
                 game()
-                break
+                return
      
 def background_music():
      mixer.music.load('graphics/videoplayback.mp3')
@@ -158,6 +159,7 @@ def main_menu():
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
                     mixer.music.stop()
                     loading()
+                    break
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
                     options()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
