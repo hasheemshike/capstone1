@@ -31,23 +31,6 @@ class Player(pygame.sprite.Sprite):
         self.on_left = False
         self.on_right = False
         self.is_dead = False
-def mini_menu():
-    OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
-
-    SCREEN = pygame.display.set_mode((1180,640))
-    def get_font(size): # Returns Press-Start-2P in the desired size
-        return pygame.font.Font("assets/font.ttf", size)
-    BG1 = pygame.image.load("graphics/BG.png")
-
-    mathew3 = Button(image=None, pos=(590,100),
-                     text_input="Presented by:", font=get_font(75), base_color="grey", hovering_color="orange")
-                
-    SCREEN.blit(BG1,(0,0))
-
-    mathew3.changeColor(OPTIONS_MOUSE_POS)
-    mathew3.update(SCREEN)
-
-    pygame.display.update
 
     def import_character_assets(self):
          character_path = 'graphics/character/'
@@ -100,9 +83,6 @@ def mini_menu():
                 self.facing_right = False
             else:
                 self.direction.x = 0
-
-            if keys[pygame.K_ESCAPE]:
-                mini_menu()
 
             if keys[pygame.K_SPACE] and self.jump_count < self.max_jumps and self.on_ground:
                 current_time = pygame.time.get_ticks()
