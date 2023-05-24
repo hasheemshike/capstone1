@@ -1,9 +1,8 @@
 import pygame
 from support import import_folder
 
-
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, name=None):
+    def __init__(self, pos):
         super().__init__()
         self.import_character_assets()
         self.frame_index = 0
@@ -28,8 +27,8 @@ class Player(pygame.sprite.Sprite):
         self.on_ground = False
         self.on_ceiling = False
         self.on_left = False
-        self.on_right = False 
-
+        self.on_right = False
+        self.is_dead = False
 
     def import_character_assets(self):
          character_path = 'graphics/character/'
@@ -67,6 +66,9 @@ class Player(pygame.sprite.Sprite):
         elif self.on_ceiling:
             self.rect = self.image.get_rect(midtop = self.rect.midtop)
         
+
+
+
     def get_input(self):
             
             keys = pygame.key.get_pressed()
