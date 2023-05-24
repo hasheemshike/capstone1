@@ -17,7 +17,7 @@ icon = pygame.image.load("assets/icon.png").convert_alpha()
 pygame.display.set_icon(icon)
 
 BG = pygame.image.load("graphics/BG.png") 
-bg = pygame.image.load("graphics/BG.png")  
+bg = pygame.image.load("graphics/Sky.png")  
 BG1 = pygame.image.load("graphics/back.png")
 
 
@@ -212,12 +212,14 @@ def options():
                     credits()
         pygame.display.update()
 
-Vid = Video("graphics/loading.mp4") 
-Vid.set_size((1180, 640))
+
 
 def loading():
-     Vid.active
-     while True:
+    Vid = Video("graphics/loading.mp4") 
+    Vid.set_size((1180, 640))
+
+    Vid.active
+    while True:
         Vid.draw(SCREEN, (0,0))
         pygame.display.update()
         for event in pygame.event.get():
@@ -233,8 +235,16 @@ def loading():
 def background_music():
      mixer.music.load('graphics/videoplayback.mp3')
      mixer.music.play(-1)
+     mixer.music.set_volume(2)
+
+def game_music():
+     mixer.music.load('graphics/gamemusic.mp3')
+     mixer.music.play(-1)
+     mixer.music.set_volume(8)
+
 
 def main_menu():
+    background_music()
     # loading() REMOVED
     # game() REMOVED
 
@@ -274,8 +284,9 @@ def main_menu():
             
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    mixer.music.stop()
+                    pygame.mixer_music.stop()
                     loading()
+                    game_music()
                     game() # ADDED
                     break
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
