@@ -41,6 +41,9 @@ def game():
         if player.is_dead == True:
             break
 
+        pygame.display.update()
+        clock.tick(60)
+
         
                 
 
