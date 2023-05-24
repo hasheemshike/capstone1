@@ -19,37 +19,35 @@ pygame.display.set_icon(icon)
 BG = pygame.image.load("assets/Back.jpg") 
 Button1 = pygame.image.load("assets/Mute.png")
 Button2 = pygame.image.load("assets/Unmute.png")  
-bg = pygame.image.load("assets/Background.png") 
 
 
 
 def game():
-	pygame.init()
-	screen = pygame.display.set_mode((screen_width,screen_height))
-	clock = pygame.time.Clock()
-	level = Level(level_map,screen)
-    
+    pygame.init()
+    screen = pygame.display.set_mode((screen_width,screen_height))
+    clock = pygame.time.Clock()
+    level = Level(level_map,screen)
 
-
-	while True:
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				pygame.quit()
-				sys.exit()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
                                 
-	
-		screen.blit(bg, (0,0))
-		level.run()
+                                
 
-		pygame.display.update()
-		clock.tick(60)
+        screen.fill('white')
+        player = level.run()
+        if player.is_dead == True:
+            break
+
         
                 
 
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/font.ttf", size)
     
-vid = Video("graphics/Intro vid.mp4")
+vid = Video("assets/starting vid_Trim.mp4")
 vid.set_size((1180, 640))
 
 def intro():
@@ -62,20 +60,6 @@ def intro():
                 vid.close()
                 background_music()
                 main_menu()
-
-load = Video("graphics/loading.mp4")
-load.set_size((1180, 640))
-
-def loading():
-    load.active
-    while True:
-         load.draw(SCREEN, (0,0))
-         pygame.display.update()
-         for event in pygame.event.get():
-              if event.type == pygame.MOUSEBUTTONDOWN:
-                load.close()
-                game()
-     
 
     
 def options():
@@ -113,12 +97,27 @@ def options():
 
         pygame.display.update()
 
+Vid = Video("assets/starting vid_Trim.mp4") 
+Vid.set_size((1180, 640))
+
+def loading():
+     Vid.active
+     while True:
+         Vid.draw(SCREEN, (0,0))
+         pygame.display.update()
+         for event in pygame.event.get():
+              if event.type == pygame.MOUSEBUTTONDOWN:
+                Vid.close()           
+                game()
+                break
+     
 def background_music():
      mixer.music.load('graphics/videoplayback.mp3')
      mixer.music.play(-1)
 
-
 def main_menu():
+    loading()
+    game()
 
     while True:
         for event in pygame.event.get():
@@ -154,9 +153,8 @@ def main_menu():
             
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                   mixer.music.stop()
-                   loading()
-                   
+                    mixer.music.stop()
+                    loading()
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
                     options()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
