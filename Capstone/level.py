@@ -15,6 +15,7 @@ class Level:
     def setup_level(self,layout):
         self.tiles = pygame.sprite.Group()
         self.player = pygame.sprite.GroupSingle()
+        self.lose_tiles = pygame.sprite.Group()
        
         for row_index,row in enumerate(layout):
             for col_index,cell in enumerate(row):
@@ -26,7 +27,7 @@ class Level:
                     self.tiles.add(tile)
                 if cell == 'Y':
                     tile = LoseTile((x,y),tile_size)
-                    self.tiles.add(tile)
+                    self.lose_tiles.add(tile)
                 if cell == 'P':
                     player_sprite = Player((x,y))
                     self.player.add(player_sprite)
@@ -85,11 +86,10 @@ class Level:
             player.on_ground = False
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False
-            player.is_dead = True
             
-        for sprite in self.tiles.sprites():
+        for sprite in self.lose_tiles.sprites():
             if sprite.rect.colliderect(player.rect):
-                sys.exit()
+                player.is_dead = True
 
                 
                 
@@ -97,6 +97,8 @@ class Level:
         #level tiles
         self.tiles.update(self.world_shift)
         self.tiles.draw(self.display_surface)
+        self.lose_tiles.update(self.world_shift)
+        self.lose_tiles.draw(self.display_surface)
         self.scroll_x()
         #player
         self.player.update()
