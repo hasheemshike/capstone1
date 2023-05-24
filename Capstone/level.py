@@ -1,5 +1,5 @@
-import pygame 
-from tile import Tile 
+import pygame, sys
+from tile import Tile, LoseTile
 from settings import tile_size, screen_width
 from player import Player
 
@@ -23,6 +23,9 @@ class Level:
 
                 if cell == 'X':
                     tile = Tile((x,y),tile_size)
+                    self.tiles.add(tile)
+                if cell == 'Y':
+                    tile = LoseTile((x,y),tile_size)
                     self.tiles.add(tile)
                 if cell == 'P':
                     player_sprite = Player((x,y))
@@ -82,7 +85,14 @@ class Level:
             player.on_ground = False
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False
+            player.is_dead = True
+            
+        for sprite in self.tiles.sprites():
+            if sprite.rect.colliderect(player.rect):
+                sys.exit()
 
+                
+                
     def run(self):
         #level tiles
         self.tiles.update(self.world_shift)
@@ -93,3 +103,4 @@ class Level:
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
         self.player.draw(self.display_surface)
+        return self.player.sprite
