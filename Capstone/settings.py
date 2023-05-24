@@ -1,17 +1,18 @@
-import pygame
 level_map = [
-'                            ',
-'                            ',
-'                            ',
-' XX                   XX    ',
-' XX P                       ',
-' XXXXXXXXXX         XX   XXXXXXXXX       XXXXXXXX',
-' XXXX       XX                  XXX ',
-' XX    X  XXXX    XX  XX       XXXX XXX ',
-'       X  XXXX    XX  XXX     XXXXX XXXX',
-'    XXXX XXXXXX  XX  XXXX   XXXXXXX XXXX',
-'XXXXXXXX  XXXXXX  XX  XXXX  XXXXXXX XXXX'
-'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY',]        
+'                                          ',
+'                                          ',
+'                                         ',
+' XX                   XXX                 ',
+' XX P                                     ',
+' XXXXXXXXXX         XX    XXXX          ',
+' XXXX       XX                    XXXXXXXX ',
+' XX    X  XXXX    XX  XX         XXXXXXXXX',
+'       X  XXXX    XX  XXX       XXXXXXXXXX',
+'    XXXX  XXXXXX  XX  XXXX     XXXXXXXXXXX',
+'XXXXXXXX  XXXXXX  XX  XXXX    XXXXXXXXXXXX',
+'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYX']
+
+
 
 
 vertical_tile_number = 11   
