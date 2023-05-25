@@ -1,6 +1,6 @@
 import pygame, sys
 from settings import * 
-from level import Level
+from level import *
 from button import Button
 from pyvidplayer import Video
 from player import Player
@@ -20,7 +20,6 @@ BG = pygame.image.load("graphics/BG.png")
 bg = pygame.image.load("graphics/Sky.png")  
 BG1 = pygame.image.load("graphics/back.png")
 
-
 def game():
     screen = pygame.display.set_mode((screen_width,screen_height))
     clock = pygame.time.Clock()
@@ -37,14 +36,12 @@ def game():
         screen.blit(bg, (0,0))
         player = level.run()
         if player.is_dead == True:
-            # pygame.quit() REMOVED
             game_over()
+        
 
         pygame.display.update()
         clock.tick(60)
-
-        
-                
+            
 
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/font.ttf", size)
@@ -60,12 +57,10 @@ def intro():
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 vid.close()
-                vid.active = False # ADDED
-                # background_music() REMOVED
-                # main_menu() REMOVED
-        if vid.active == False: # ADDED
-            pygame.display.update() # ADDED
-            return # ADDED
+                vid.active = False
+            if vid.active == False:
+                pygame.display.update()
+                return
 
 def credits():
     while True:
@@ -126,7 +121,7 @@ def game_over():
                     if gameover2.checkForInput(OPTIONS_MOUSE_POS):
                         options2()
 
-            pygame.display.update()
+        pygame.display.update()
 
 def options2():
     while True:
@@ -145,12 +140,12 @@ def options2():
 
 
         OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
-        MUTE.changeColor(OPTIONS_MOUSE_POS)
-        CREDITS.changeColor(OPTIONS_MOUSE_POS)
-        UNMUTE.changeColor(OPTIONS_MOUSE_POS)
-        CREDITS.update(SCREEN)
         OPTIONS_BACK.update(SCREEN)
+        MUTE.changeColor(OPTIONS_MOUSE_POS)
         MUTE.update(SCREEN)
+        CREDITS.changeColor(OPTIONS_MOUSE_POS)
+        CREDITS.update(SCREEN)
+        UNMUTE.changeColor(OPTIONS_MOUSE_POS)
         UNMUTE.update(SCREEN)
 
         for event in pygame.event.get():
@@ -225,12 +220,10 @@ def loading():
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 Vid.close()
-                Vid.active = False # ADDED
-                # game() REMOVED
-                # return REMOVED 
-        if Vid.active == False: # ADDED
-            pygame.display.update() # ADDED
-            return # ADDED
+                Vid.active = False 
+        if Vid.active == False:
+            pygame.display.update() 
+            return 
      
 def background_music():
      mixer.music.load('graphics/videoplayback.mp3')
@@ -245,8 +238,7 @@ def game_music():
 
 def main_menu():
     background_music()
-    # loading() REMOVED
-    # game() REMOVED
+
 
     while True:
         for event in pygame.event.get():
@@ -287,7 +279,7 @@ def main_menu():
                     pygame.mixer_music.stop()
                     loading()
                     game_music()
-                    game() # ADDED
+                    game() 
                     break
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
                     options()
