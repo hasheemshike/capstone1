@@ -1,16 +1,16 @@
 level_map = [
-'                                          ',
-'                                          ',
-'                                         ',
-' XX                   XXX                 ',
-' XX P                                     ',
-' XXXXXXXXXX         XX    XXXX          ',
-' XXXX       XX                    XXXXXXXX ',
-' XX    X  XXXX    XX  XX         XXXXXXXXX',
-'       X  XXXX    XX  XXX       XXXXXXXXXX',
-'    XXXX  XXXXXX  XX  XXXX     XXXXXXXXXXX',
-'XXXXXXXX  XXXXXX  XX  XXXX    XXXXXXXXXXXX',
-'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYX']
+'                                                                                                                                             ',
+'                                                                                                                                             ',                
+'         D                                                                                                                                    ',
+'        XXX                                                            S                                                                     ', 
+' N                                                       XXXX         XXXX                                                                      ',
+'XXXX                XX                                            XXX        DD       XXXX                                                            ',
+'        XX                     D                 XXXXX                      XXXXX  XXX                                                               ',
+'P   B          XXXX          XXXXX                              XXXXX                                                                              ',
+'XXXXXX                DD                   XXXXXX                             XXXX                                                                   ', 
+'ZZZZZZ  XXXX         XXXX          XXXXX                              DDD                                                                      ', 
+'XXXXXX  XXXX                       ZZZZZ                              XXXXX                                                                       ',
+'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY']
 
 
 
