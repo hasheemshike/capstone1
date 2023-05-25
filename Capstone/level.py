@@ -1,8 +1,202 @@
-import pygame, sys
-from tile import Tile, LoseTile
+import pygame
+from tile import Tile, LoseTile, NPC, NPC2,NPC3, Spike, Dirt
 from settings import tile_size, screen_width
 from player import Player
+from pyvidplayer import Video
 
+
+correctanswer = 0
+
+SCREEN = pygame.display.set_mode((1180, 640))
+
+#Sir nins NPC
+def sir():
+    Vid = Video("graphics/sir_nins/play 2.mp4")
+    Vid.set_size((1180, 640))
+    Vid.active
+    while True:
+        Vid.draw(SCREEN, (0,0))
+        for event in pygame.event.get():
+            keys = pygame.key.get_pressed()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                Vid.close()
+                Vid.active == False
+                return
+            if keys[pygame.K_a]:
+                correct()
+            if keys[pygame.K_b]:
+                wrong()
+            if keys[pygame.K_c]:
+                wrong()
+            if keys[pygame.K_d]:
+                wrong()
+
+        pygame.display.update()
+                
+
+   #Sir correct answer 
+def correct():
+    global correctanswer
+    Vid = Video("graphics/sir_nins/right 3.mp4")
+    Vid.set_size((1180, 640))
+    Vid.active
+    while True:
+        Vid.draw(SCREEN, (0,0))
+        Vid.set_size((1180, 640))
+        Vid.active == True
+        while True:
+            Vid.draw(SCREEN, (0,0))
+            pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    Vid.close()
+                    Vid.active = False 
+                    continue
+            correctanswer += 1 
+            pygame.display.update()   
+            return
+     #sir nins-answer incorrect       
+def wrong():
+    Vid = Video("graphics/sir_nins/wrong 2.mp4")
+    Vid.set_size((1180, 640))
+    Vid.active == True
+    while True:
+        Vid.draw(SCREEN, (0,0))
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                Vid.close()
+                Vid.active = False 
+                continue
+        
+        pygame.display.update()
+        return
+
+#Ma'am jecka NPC
+def npc():
+    Vid = Video("graphics/maam/NPC-jecka.mp4")
+    Vid.set_size((1180, 640))
+    Vid.active
+    while True:
+        Vid.draw(SCREEN, (0,0))
+        for event in pygame.event.get():
+            keys = pygame.key.get_pressed()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                Vid.close()
+                Vid.active = False
+                continue
+            if keys[pygame.K_a]:
+                wrong1()
+            if keys[pygame.K_b]:
+                correct1()
+            if keys[pygame.K_c]:
+                wrong1()
+            if keys[pygame.K_d]:
+                wrong1()
+
+        pygame.display.update()
+
+def npc3():
+    Vid = Video("graphics/intro vid.mp4")
+    Vid.set_size((1180, 640))
+    Vid.active
+    while True:
+        Vid.draw(SCREEN, (0,0))
+        for event in pygame.event.get():
+            keys = pygame.key.get_pressed()
+            pygame.display.update()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                Vid.close()
+                Vid.active = False
+            if keys[pygame.K_a]:
+                wrong1()
+            if keys[pygame.K_b]:
+                correct1()
+            if keys[pygame.K_c]:
+                wrong1()
+            if keys[pygame.K_d]:
+                wrong1()
+            
+        pygame.display.update()
+       
+#Ma'am jecka Correct answer CS#1    
+def correct1():
+    global correctanswer
+    Vid = Video("graphics/maam/right 1.mp4")
+    Vid.set_size((1180, 640))
+    Vid.active
+    while True:
+        Vid.draw(SCREEN, (0,0))
+        pygame.display.update()
+        for event in pygame.event.get():
+            keys = pygame.key.get_pressed()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                Vid.close()
+                Vid.active
+            if keys[pygame.K_a]:
+                wrong1()
+            if keys[pygame.K_b]:
+                wrong1()
+            if keys[pygame.K_c]:
+                correct2()
+            if keys[pygame.K_d]:
+                wrong1()
+        correctanswer += 1
+        pygame.display.update()
+
+#Ma'am jecka CS#2
+def correct2():
+    global correctanswer
+    Vid = Video("graphics/maam/right 2.mp4")
+    Vid.set_size((1180, 640))
+    Vid.active
+    while True:
+        Vid.draw(SCREEN, (0,0))
+        for event in pygame.event.get():
+            keys = pygame.key.get_pressed()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                Vid.close()
+                Vid.active = False 
+                continue
+            pygame.display.update()
+            if keys[pygame.K_a]:
+                correctanswer += 1
+                return
+        pygame.display.update()
+        
+           
+#Ma'am jecka Incorrect answer        
+def wrong1():
+    Vid = Video("graphics/maam/wrong.mp4")
+    Vid.set_size((1180, 640))
+    Vid.active == True
+    while True:
+        Vid.draw(SCREEN, (0,0))
+        pygame.display.update()
+    
+        Vid.active = False 
+        
+        pygame.display.update()
+
+def winner():
+    if correctanswer == 3:
+        Vid = Video("graphics/loading.mp4")
+        Vid.set_size((1180, 640))
+        Vid.active == True
+        while True:
+            Vid.draw(SCREEN, (0,0))
+            pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    Vid.close()
+                    Vid.active = False 
+            pygame.display.update()
+
+    
+        
+            
+    
+#Level Class
 class Level:
     def __init__(self,level_data,surface):
 
@@ -16,6 +210,11 @@ class Level:
         self.tiles = pygame.sprite.Group()
         self.player = pygame.sprite.GroupSingle()
         self.lose_tiles = pygame.sprite.Group()
+        self.npc = pygame.sprite.Group()
+        self.npc2 = pygame.sprite.Group()
+        self.spike = pygame.sprite.Group()
+        self.dirt = pygame.sprite.Group()
+        self.npc3 = pygame.sprite.Group()
        
         for row_index,row in enumerate(layout):
             for col_index,cell in enumerate(row):
@@ -25,13 +224,29 @@ class Level:
                 if cell == 'X':
                     tile = Tile((x,y),tile_size)
                     self.tiles.add(tile)
+                if cell == 'Z':
+                    tile = Dirt((x,y),tile_size)
+                    self.dirt.add(tile)
                 if cell == 'Y':
                     tile = LoseTile((x,y),tile_size)
                     self.lose_tiles.add(tile)
+                if cell == 'N':
+                    tile = NPC((x,y),tile_size)
+                    self.npc.add(tile)
+                if cell == 'S':
+                    tile = NPC2((x,y),tile_size)
+                    self.npc2.add(tile)
+                if cell == 'B':
+                    tile = NPC3((x,y),tile_size)
+                    self.npc3.add(tile)
                 if cell == 'P':
                     player_sprite = Player((x,y))
                     self.player.add(player_sprite)
-
+                if cell == 'D':
+                    tile = Spike((x,y), tile_size)
+                    self.spike.add(tile)
+                
+#Scrolling Background
     def scroll_x(self):
         player = self.player.sprite
         player_x = player.rect.centerx
@@ -86,23 +301,50 @@ class Level:
             player.on_ground = False
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False
-            
+#Rect and Collisions            
         for sprite in self.lose_tiles.sprites():
             if sprite.rect.colliderect(player.rect):
                 player.is_dead = True
+        keys = pygame.key.get_pressed()
+        for sprite in self.npc.sprites():
+            if sprite.rect.colliderect(player.rect) and keys[pygame.K_e]:  
+                npc()
+        
+        for sprite in self.npc2.sprites():
+            if sprite.rect.colliderect(player.rect) and keys[pygame.K_e]:  
+                sir()
 
-                
-                
+        for sprite in self.npc3.sprites():
+            if sprite.rect.colliderect(player.rect) and keys[pygame.K_e]:  
+                npc3()
+
+        for sprite in self.spike.sprites():
+            if sprite.rect.colliderect(player.rect):  
+                player.is_dead = True
+            
     def run(self):
         #level tiles
         self.tiles.update(self.world_shift)
         self.tiles.draw(self.display_surface)
         self.lose_tiles.update(self.world_shift)
         self.lose_tiles.draw(self.display_surface)
+        self.npc.update(self.world_shift)
+        self.npc.draw(self.display_surface)
+        self.npc2.update(self.world_shift)
+        self.npc2.draw(self.display_surface)
+        self.spike.update(self.world_shift)
+        self.spike.draw(self.display_surface)
+        self.dirt.update(self.world_shift)
+        self.dirt.draw(self.display_surface)
+        self.npc3.update(self.world_shift)
+        self.npc3.draw(self.display_surface)
+        
+
         self.scroll_x()
         #player
         self.player.update()
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
         self.player.draw(self.display_surface)
+        winner()
         return self.player.sprite
